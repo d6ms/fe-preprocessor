@@ -11,6 +11,9 @@ public class ExtractorConfig {
     public int maxChildId = 3;
     public boolean excludeBoilerplates;
 
+    public int methodNameLength = 5;
+    public int packageNameLength = 5;
+
     public static ExtractorConfig fromCommandLineArgs(CommandLineValues args) {
         ExtractorConfig cfg = new ExtractorConfig();
         cfg.maxPathLength = args.maxPathLength;

@@ -18,7 +18,6 @@ public class PackageCallExtractor {
         this.parser = parser;
     }
 
-    // TODO ここでは usedImport の文だけを返すようにして、その後のフィルタはプロジェクトごとに行う
     public Optional<PackageCall> extractPackageCall(String code) {
         CompilationUnit cu = parseSourceCode(code);
         if (cu == null) {

@@ -60,10 +60,8 @@ public class ProjectPreprocessTask implements Runnable {
                     }
 
                     for (String packageNameTc : packageNamePtc) {
-                        Double distanceEc = result.getDistances().get(Pair.of(method, result.getPackages().get(packageNameEc)));
-                        distanceEc = distanceEc == null ? 1.0 : distanceEc;
-                        Double distanceTc = result.getDistances().get(Pair.of(method, result.getPackages().get(packageNameTc)));
-                        distanceTc = distanceTc == null ? 1.0 : distanceTc;
+                        double distanceEc = method.calcDistance(result.getPackages().get(packageNameEc));
+                        double distanceTc = method.calcDistance(result.getPackages().get(packageNameTc));
                         String methodName = method.asEntity().getName();
                         nameWriter.write(formatNames(methodName, packageNameEc, packageNameTc) + "\n");
                         distWriter.write(formatDistances(distanceEc, distanceTc, 0) + "\n");

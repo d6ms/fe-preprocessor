@@ -62,35 +62,7 @@ public class DistanceCalculator {
             }
         }
 
-        // 距離を計算する
-        Map<Pair<Method, Package>, Double> distances = new HashMap<>();
-        for (Package package_ : packages.values()) {
-            for (Method method : methods) {
-                double distance = calcDistance(package_, method);
-                distances.put(Pair.of(method, package_), distance);
-            }
-        }
-
-        return new DistanceCalculationResult(packages, new HashSet<>(methods), distances);
-    }
-
-    private double calcDistance(Package package_, Method method) {
-        var entitySet = method.getEntities();
-        var packageSet = package_.getEntities();
-        if (method.getPackageName().equals(package_.getName())) {
-            packageSet.remove(method.asEntity());
-        }
-
-        Set<Entity> union = new HashSet<>(entitySet);
-        union.addAll(packageSet);
-
-        if (union.isEmpty()) {
-            return 1.0;
-        } else {
-            Set<Entity> intersection = new HashSet<>(packageSet);
-            intersection.retainAll(entitySet);
-            return 1.0 - (double) intersection.size() / (double) union.size();
-        }
+        return new DistanceCalculationResult(packages, new HashSet<>(methods));
     }
 
     private CompilationUnit parse(Path path) {
@@ -196,12 +168,10 @@ public class DistanceCalculator {
     public static class DistanceCalculationResult {
         private final Map<String, Package> packages;
         private final Set<Method> methods;
-        private final Map<Pair<Method, Package>, Double> distances;
 
-        public DistanceCalculationResult(Map<String, Package> packages, Set<Method> methods, Map<Pair<Method, Package>, Double> distances) {
+        public DistanceCalculationResult(Map<String, Package> packages, Set<Method> methods) {
             this.packages = packages;
             this.methods = methods;
-            this.distances = distances;
         }
 
         public Map<String, Package> getPackages() {
@@ -212,9 +182,6 @@ public class DistanceCalculator {
             return methods;
         }
 
-        public Map<Pair<Method, Package>, Double> getDistances() {
-            return distances;
-        }
     }
 
     private static class MethodCollectorVisitor extends VoidVisitorAdapter<Object> {

@@ -31,4 +31,23 @@ public class Method {
     public Entity asEntity() {
         return correspondingEntity;
     }
+
+    public double calcDistance(Package package_) {
+        var entitySet = entities;
+        var packageSet = package_.getEntities();
+        if (packageName.equals(package_.getName())) {
+            packageSet.remove(correspondingEntity);
+        }
+
+        Set<Entity> union = new HashSet<>(entitySet);
+        union.addAll(packageSet);
+
+        if (union.isEmpty()) {
+            return 1.0;
+        } else {
+            Set<Entity> intersection = new HashSet<>(packageSet);
+            intersection.retainAll(entitySet);
+            return 1.0 - (double) intersection.size() / (double) union.size();
+        }
+    }
 }

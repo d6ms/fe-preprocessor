@@ -56,7 +56,7 @@ public class DistanceCalculator {
                 if (isBoilerPlate(methodDecl)) {
                     continue;
                 }
-                Method method = new Method(packageName, methodDecl);
+                Method method = new Method(path, packageName, methodDecl);
                 method.addEntities(collectCallingEntities(methodDecl));
                 methods.add(method);
             }

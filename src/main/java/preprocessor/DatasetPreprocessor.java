@@ -1,5 +1,7 @@
 package preprocessor;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import preprocessor.extractor.ExtractorConfig;
 
 import java.io.*;

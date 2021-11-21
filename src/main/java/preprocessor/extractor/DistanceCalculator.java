@@ -217,7 +217,7 @@ public class DistanceCalculator {
                         Entity entity = Entity.method(m.getPackageName(), methodDecl);
                         entityCalls.add(entity);
                     }
-                } catch (Exception e) {
+                } catch (Exception | StackOverflowError e) {
 //                    System.out.println(e.getMessage());
                 }
             } else if (n instanceof FieldAccessExpr) {
@@ -229,7 +229,7 @@ public class DistanceCalculator {
                         Entity entity = Entity.field(packageName, varDecl);
                         entityCalls.add(entity);
                     }
-                } catch (Exception e) {
+                } catch (Exception | StackOverflowError e) {
 //                    System.out.println(e.getMessage());
                 }
             }
